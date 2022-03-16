@@ -1,0 +1,7 @@
+/* XXX.module.css 형태로 파일을 만들어야 한다. */
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  background-color: tomato;
+}

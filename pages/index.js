@@ -2,16 +2,13 @@
 // NextJS는 Framework (NextJS framework가 개발자의 코드를 호출)
 // NextJS는 Server-side Rendering
 
+import Seo from "../components/Seo";
+
 export default function Home() {
   return (
     <div>
+      <Seo title="Home" />
       <h1 className="active">Hello</h1>
-      {/* Scope가 index 페이지인 styles */}
-      <style jsx global>{`
-        a {
-          color: blue;
-        }
-      `}</style>
     </div>
   );
 }

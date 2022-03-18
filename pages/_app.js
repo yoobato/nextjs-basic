@@ -12,12 +12,6 @@ export default function App({Component, pageProps}) {
     // Layout 패턴
     <Layout>
       <Component {...pageProps} />
-      {/* Global styles */}
-      <style jsx global>{`
-        a {
-          color: orange;
-        }
-      `}</style>
     </Layout>
   );
 }

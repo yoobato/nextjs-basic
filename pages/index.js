@@ -2,7 +2,6 @@
 // NextJS는 Framework (NextJS framework가 개발자의 코드를 호출)
 // NextJS는 Server-side Rendering
 
-import { useEffect, useState } from "react";
 import Seo from "../components/Seo";
 
 // getServerSideProps()에서 return하는 props
@@ -25,6 +24,9 @@ export default function Home({ results }) {
           gap: 20px;
         }
 
+        .movie {
+          cursor: pointer;
+        }
         .movie img {
           max-width: 100%;
           border-radius: 12px;

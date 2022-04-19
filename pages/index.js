@@ -5,21 +5,13 @@
 import { useEffect, useState } from "react";
 import Seo from "../components/Seo";
 
-export default function Home() {
-  const [movies, setMovies] = useState();
-
-  useEffect(() => {
-    (async () => {
-      const { results } = await (await fetch("/api/movies")).json();
-      setMovies(results);
-    })();
-  }, []);
-
+// getServerSideProps()에서 return하는 props
+// ReactJS는 NextJS가 넘긴 props를 Hydrate해서 화면에 그려줌.
+export default function Home({ results }) {
   return (
     <div className="container">
       <Seo title="Home" />
-      {!movies && <h4>Looading...</h4>}
-      {movies?.map((movie) => (
+      {results?.map((movie) => (
         <div className="movie" key={movie.id}>
           <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
           <h4>{movie.original_title}</h4>
@@ -49,4 +41,16 @@ export default function Home() {
       `}</style>
     </div>
   );
+}
+
+// 이 안의 코드는 백엔드(server)에서만 작동함.
+export async function getServerSideProps() {
+  // 데이터를 먼저 받은 다음에 렌더링함. -> 로딩 불필요.
+  // But, 아래 작업이 오래 걸리면 사용자가 흰 화면을 보는 시간이 길어짐.
+  const { results } = await (await fetch("http://localhost:3000/api/movies")).json();
+  return {
+    props: {
+      results,
+    },
+  };
 }

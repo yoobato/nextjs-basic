@@ -16,12 +16,7 @@ export default function Home({ results }) {
     // 뒤에 as 부분을 쓰면 URL Masking 가능 (사용자에게 숨길 수 있음.)
     // 아래 예시에서는 ?title="~~"가 붙지만, 주소창에는 안보임.
     // But, 상세페이지의 router 객체에서는 확인이 가능하다.
-    router.push({
-      pathname: `/movies/${id}`,
-      query: {
-        title,
-      },
-    }, `/movies/${id}`);
+    router.push(`/movies/${title}/${id}`);
   }
 
   return (
@@ -31,14 +26,7 @@ export default function Home({ results }) {
         <div onClick={() => onClick(movie.id, movie.original_title)} className="movie" key={movie.id}>
           <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
           <h4>
-            <Link href={{
-              pathname: `/movies/${movie.id}`,
-              query: {
-                title: movie.original_title,
-              },
-            }}
-            as={`/movies/${movie.id}`}
-            >
+            <Link href={`/movies/${movie.original_title}/${movie.id}`}>
               <a>{movie.original_title}</a>
             </Link>
           </h4>

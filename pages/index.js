@@ -2,18 +2,46 @@
 // NextJS는 Framework (NextJS framework가 개발자의 코드를 호출)
 // NextJS는 Server-side Rendering
 
+import Link from "next/link";
+import { useRouter } from "next/router";
 import Seo from "../components/Seo";
 
 // getServerSideProps()에서 return하는 props
 // ReactJS는 NextJS가 넘긴 props를 Hydrate해서 화면에 그려줌.
 export default function Home({ results }) {
+  const router = useRouter();
+
+  const onClick = (id, title) => {
+    // Router hook 사용해서 수동으로 Navigating
+    // 뒤에 as 부분을 쓰면 URL Masking 가능 (사용자에게 숨길 수 있음.)
+    // 아래 예시에서는 ?title="~~"가 붙지만, 주소창에는 안보임.
+    // But, 상세페이지의 router 객체에서는 확인이 가능하다.
+    router.push({
+      pathname: `/movies/${id}`,
+      query: {
+        title,
+      },
+    }, `/movies/${id}`);
+  }
+
   return (
     <div className="container">
       <Seo title="Home" />
       {results?.map((movie) => (
-        <div className="movie" key={movie.id}>
+        <div onClick={() => onClick(movie.id, movie.original_title)} className="movie" key={movie.id}>
           <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
-          <h4>{movie.original_title}</h4>
+          <h4>
+            <Link href={{
+              pathname: `/movies/${movie.id}`,
+              query: {
+                title: movie.original_title,
+              },
+            }}
+            as={`/movies/${movie.id}`}
+            >
+              <a>{movie.original_title}</a>
+            </Link>
+          </h4>
         </div>
       ))}
       <style jsx>{`

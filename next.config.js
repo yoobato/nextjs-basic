@@ -17,11 +17,16 @@ const nextConfig = {
     ];
   },
   async rewrites() {
-    // Rewrites : Redirect 시키는데 주소창의 URL이 바뀌지 않음.
+    // Rewrites : Redirect 시키는데 주소창의 URL이 바뀌지 않음. (URL을 숨길 수 있다)
+    // Pattern Matching 가능 (:id는 그대로 맵핑된다)
     return [
       {
         source: "/api/movies",
         destination: `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`,
+      },
+      {
+        source: "/api/movies/:id",
+        destination: `https://api.themoviedb.org/3/movie/:id?api_key=${API_KEY}`,
       },
     ];
   },

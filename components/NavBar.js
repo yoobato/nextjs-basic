@@ -6,6 +6,7 @@ export default function NavBar() {
 
   return (
     <nav>
+      {/* public 디렉토리에 있는 파일 */}
       <img src="/vercel.svg" />
       <div>
         <Link href="/">
